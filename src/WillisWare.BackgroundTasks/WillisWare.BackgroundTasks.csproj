@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Jon Willis</Authors>
+    <Company>WillisWare, LLC</Company>
+    <Description>.NET Standard package containing the classes and extension methods necessary for running off-thread tasks as background workers in ASP.NET Core and .NET Core projects.</Description>
+    <Copyright>Copyright © WillisWare, LLC. All rights Reserved</Copyright>
+    <PackageProjectUrl>https://github.com/users/CoderHead/projects/1</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/CoderHead/BackgroundTasks.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>background,task,threading</PackageTags>
+    <PackageReleaseNotes>Version 1.0.0: Initial release containing the IRunnable interface and task runner.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.9" />
+  </ItemGroup>
+
+</Project>
