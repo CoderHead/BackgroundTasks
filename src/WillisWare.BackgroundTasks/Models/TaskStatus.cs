@@ -2,15 +2,18 @@
 
 namespace WillisWare.BackgroundTasks.Models
 {
+    /// <summary>
+    /// Represents the current and past status of a runnable task.
+    /// </summary>
     public sealed class TaskStatus
     {
-        public DateTimeOffset CurrentStartTime { get; set; } = DateTimeOffset.Now;
+        public Guid CurrentRunId { get; internal set; } = Guid.NewGuid();
 
-        public TaskRunResult CurrentStatus { get; set; } = TaskRunResult.Unknown;
+        public DateTimeOffset CurrentStartTime { get; internal set; } = DateTimeOffset.Now;
 
-        public string Description { get; set; }
+        public TaskRunResult CurrentStatus { get; internal set; } = TaskRunResult.Unknown;
 
-        public int FailCount { get; set; } = 0;
+        public int FailCount { get; internal set; } = 0;
 
         public Exception LastException { get; internal set; }
 
@@ -24,6 +27,6 @@ namespace WillisWare.BackgroundTasks.Models
 
         public DateTimeOffset? LastSuccessTime { get; internal set; }
 
-        public int SuccessCount { get; set; } = 0;
+        public int SuccessCount { get; internal set; } = 0;
     }
 }

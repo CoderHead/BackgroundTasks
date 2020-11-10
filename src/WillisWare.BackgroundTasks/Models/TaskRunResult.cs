@@ -3,8 +3,10 @@
     public enum TaskRunResult : byte
     {
         Unknown,
+        Cancelled,
         Failure,
         Running,
-        Success
+        Success,
+        Warning
     }
 }
