@@ -5,7 +5,7 @@ namespace WillisWare.BackgroundTasks.Models
     /// <summary>
     /// Represents the current and past status of a runnable task.
     /// </summary>
-    public sealed class TaskStatus
+    public sealed class TaskRunStatus
     {
         public Guid CurrentRunId { get; internal set; } = Guid.NewGuid();
 

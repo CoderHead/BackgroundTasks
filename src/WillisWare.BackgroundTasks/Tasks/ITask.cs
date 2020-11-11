@@ -38,8 +38,8 @@ namespace WillisWare.BackgroundTasks.Tasks
         Type RunnableType { get; }
 
         /// <summary>
-        /// Gets the <see cref="Models.TaskStatus"/> instance indicating the current/past state of the task.
+        /// Gets the <see cref="Models.TaskRunStatus"/> instance indicating the current/past state of the task.
         /// </summary>
-        TaskStatus Status { get; }
+        TaskRunStatus Status { get; }
     }
 }

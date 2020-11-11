@@ -11,9 +11,9 @@ namespace WillisWare.BackgroundTasks.WebApiSample.Controllers
     public class BackgroundTaskController : ControllerBase
     {
         private readonly ILogger<BackgroundTaskController> _logger;
-        private readonly ITask<RunnableTask> _task;
+        private readonly ITask _task;
 
-        public BackgroundTaskController(ILogger<BackgroundTaskController> logger, ITask<RunnableTask> task)
+        public BackgroundTaskController(ILogger<BackgroundTaskController> logger, ITask task)
         {
             _logger = logger;
             _task = task;

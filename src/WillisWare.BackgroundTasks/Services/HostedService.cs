@@ -5,15 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WillisWare.BackgroundTasks.Exceptions;
-using WillisWare.BackgroundTasks.Tasks;
 
-namespace WillisWare.BackgroundTasks
+namespace WillisWare.BackgroundTasks.Services
 {
     /// <summary>
     /// Represents the concrete implementation of a hosted, runnable task. Allows for Start/Stop and manages the task status reporting.
     /// </summary>
     /// <typeparam name="TRunnable">A reference-type object that implements the <see cref="IRunnable"/> interface.</typeparam>
-    public sealed class HostedService<TRunnable> : BackgroundService, ITask<TRunnable>
+    public sealed class HostedService<TRunnable> : BackgroundService, IHostedService
         where TRunnable : class, IRunnable
     {
         private readonly ILogger _logger;
@@ -23,7 +22,7 @@ namespace WillisWare.BackgroundTasks
         {
             if (loggerFactory == null)
             {
-                throw new ArgumentNullException(nameof(loggerFactory));
+                throw new ArgumentNullException(nameof(loggerFactory), "This type cannot be instantiated without a logger.");
             }
 
             _logger = loggerFactory
@@ -44,7 +43,7 @@ namespace WillisWare.BackgroundTasks
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     var runnable = scope.ServiceProvider.GetRequiredService<TRunnable>();
-                    await runnable.RunAsync(this, stoppingToken);
+                    //await runnable.RunAsync(this, stoppingToken);
                 }
 
                 Status.FailCount = 0;
@@ -122,6 +121,6 @@ namespace WillisWare.BackgroundTasks
         public Type RunnableType => typeof(TRunnable);
 
         /// <inheritdoc />
-        public Models.TaskStatus Status { get; } = new Models.TaskStatus();
+        public Models.TaskRunStatus Status { get; } = new Models.TaskRunStatus();
     }
 }

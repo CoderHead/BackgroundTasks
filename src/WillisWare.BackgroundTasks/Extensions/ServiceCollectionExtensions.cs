@@ -1,5 +1,6 @@
-﻿using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using WillisWare.BackgroundTasks.Services;
 using WillisWare.BackgroundTasks.Tasks;
 
 namespace WillisWare.BackgroundTasks.Extensions
@@ -15,12 +16,7 @@ namespace WillisWare.BackgroundTasks.Extensions
         public static IServiceCollection AddHostedTask<TRunnable>(this IServiceCollection services)
             where TRunnable : class, IRunnable
         {
-            var runnableType = typeof(TRunnable);
-            if (!runnableType.IsAbstract && !services.Any(x => x.ServiceType == runnableType))
-            {
-                services.AddScoped<TRunnable>();
-            }
-
+            services.TryAddScoped<TRunnable>();
             services.AddHostedService<HostedService<TRunnable>>();
 
             return services;
@@ -35,13 +31,8 @@ namespace WillisWare.BackgroundTasks.Extensions
         public static IServiceCollection AddTask<TRunnable>(this IServiceCollection services)
             where TRunnable : class, IRunnable
         {
-            var runnableType = typeof(TRunnable);
-            if (!runnableType.IsAbstract && !services.Any(x => x.ServiceType == runnableType))
-            {
-                services.AddScoped<TRunnable>();
-            }
-
-            services.AddSingleton<ITask<TRunnable>, HostedService<TRunnable>>();
+            services.TryAddScoped<TRunnable>();
+            services.TryAddSingleton<ITask, RunnableTask<TRunnable>>();
 
             return services;
         }
