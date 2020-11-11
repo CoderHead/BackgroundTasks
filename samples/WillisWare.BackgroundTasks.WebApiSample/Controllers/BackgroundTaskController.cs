@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,17 @@ namespace WillisWare.BackgroundTasks.WebApiSample.Controllers
         {
             _logger = logger;
             _task = task;
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAsync()
+        {
+            if (_task.IsStarted)
+            {
+                _task.Stop();
+            }
+
+            return await Task.FromResult(Ok(_task.Status));
         }
 
         [HttpGet]
@@ -43,7 +55,7 @@ namespace WillisWare.BackgroundTasks.WebApiSample.Controllers
             {
                 _logger.LogError(ex, $"Exception while executing task {description} with run ID {runId}.");
 
-                return await Task.FromResult(StatusCode(500, _task.Status));
+                return await Task.FromResult(StatusCode((int)HttpStatusCode.InternalServerError, _task.Status));
             }
 
             return await Task.FromResult(Ok(_task.Status));
